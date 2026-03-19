@@ -1,0 +1,26 @@
+<svg viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="rg1" cx="30%" cy="50%"><stop offset="0%" stop-color="#1a3060"/><stop offset="100%" stop-color="#0a1628"/></radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#rg1)"/>
+  <!-- Hexagon grid pattern -->
+  <g opacity="0.15" stroke="#c8952a" stroke-width="1" fill="none">
+    <polygon points="100,50 150,80 150,140 100,170 50,140 50,80"/>
+    <polygon points="200,50 250,80 250,140 200,170 150,140 150,80"/>
+    <polygon points="300,50 350,80 350,140 300,170 250,140 250,80"/>
+    <polygon points="150,170 200,200 200,260 150,290 100,260 100,200"/>
+    <polygon points="250,170 300,200 300,260 250,290 200,260 200,200"/>
+    <polygon points="900,100 960,135 960,205 900,240 840,205 840,135"/>
+    <polygon points="1000,200 1060,235 1060,305 1000,340 940,305 940,235"/>
+  </g>
+  <!-- Target reticle -->
+  <g opacity="0.2" stroke="#ef4444" stroke-width="1.5" fill="none" transform="translate(950,337)">
+    <circle r="80"/><circle r="50"/><circle r="20"/>
+    <line x1="-100" y1="0" x2="100" y2="0"/><line x1="0" y1="-100" x2="0" y2="100"/>
+  </g>
+  <!-- Satellite dish shape -->
+  <g opacity="0.12" stroke="#c8952a" stroke-width="2" fill="none" transform="translate(200,400)">
+    <ellipse rx="80" ry="40"/><ellipse rx="120" ry="60"/><ellipse rx="160" ry="80"/>
+    <line x1="0" y1="0" x2="0" y2="-120"/>
+  </g>
+</svg>
