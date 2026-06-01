@@ -200,10 +200,18 @@
             <label for="message">Your Message / Problem Statement *</label>
             <textarea id="message" name="message" rows="5" placeholder="Briefly describe your problem, project idea, or what you're looking to achieve through collaboration..." required></textarea>
           </div>
-
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;">
+          <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;">
             Submit Collaboration Request
           </button>
+
+          <div id="formSuccess" style="display:none;margin-top:18px;padding:16px 20px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.4);border-radius:8px;text-align:center;">
+            <p style="color:#34d399;font-weight:600;margin-bottom:4px;">✅ Request Submitted Successfully!</p>
+            <p style="color:var(--gray-mid);font-size:0.84rem;">We've sent a confirmation to your email. Our team will respond within 24–48 hours.</p>
+          </div>
+          <div id="formError" style="display:none;margin-top:18px;padding:16px 20px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);border-radius:8px;text-align:center;">
+            <p style="color:#f87171;font-weight:600;margin-bottom:4px;">⚠️ Submission Failed</p>
+            <p id="formErrorMsg" style="color:var(--gray-mid);font-size:0.84rem;">Please try again or email us at <a href="mailto:collaborate@bharatnexgen.com" style="color:#38bdf8;">collaborate@bharatnexgen.com</a>.</p>
+          </div>
 
           <p style="font-size:0.78rem;color:var(--gray-mid);text-align:center;margin-top:14px;">
             We respect your privacy. Your information will not be shared with third parties.
@@ -217,6 +225,38 @@
 <div id="footer-placeholder"></div>
 <script src="../js/nav.js"></script>
 <script src="../js/main.js"></script>
+<script>
+document.getElementById('collabForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn     = document.getElementById('submitBtn');
+  const success = document.getElementById('formSuccess');
+  const error   = document.getElementById('formError');
+  const errMsg  = document.getElementById('formErrorMsg');
+  success.style.display = 'none';
+  error.style.display   = 'none';
+  btn.disabled          = true;
+  btn.textContent       = 'Sending…';
+  try {
+    const res  = await fetch('../mailer.php', { method: 'POST', body: new FormData(this) });
+    const json = await res.json();
+    if (json.success) {
+      success.style.display = 'block';
+      this.reset();
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      errMsg.innerHTML = (json.message || 'Submission failed.') + ' You can also email us at <a href="mailto:collaborate@bharatnexgen.com" style="color:#38bdf8;">collaborate@bharatnexgen.com</a>.';
+      error.style.display = 'block';
+    }
+  } catch (err) {
+    errMsg.innerHTML = 'Network error. Please email us at <a href="mailto:collaborate@bharatnexgen.com" style="color:#38bdf8;">collaborate@bharatnexgen.com</a>.';
+    error.style.display = 'block';
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = 'Submit Collaboration Request';
+  }
+});
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(el => {

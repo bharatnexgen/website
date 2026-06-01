@@ -1,0 +1,14 @@
+# Block direct browser access to sensitive files
+<FilesMatch "^(\.env\.(dev|prod)|config\.php|composer\.(json|lock)|deploy\.sh|server-setup\.sh)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block hidden files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
